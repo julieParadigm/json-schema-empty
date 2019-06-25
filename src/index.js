@@ -5,7 +5,6 @@ var empty;
 
 // array <<
 var _array = function (schema, global) {
-  console.log('in _array')
   var {
     items
     , minItems
@@ -29,7 +28,6 @@ var _array = function (schema, global) {
 
 // boolean <<
 var _boolean = function () {
-  console.log('in _boolean')
   // just return a value
   // randomly picked at implementation time :)
   return false;
@@ -42,7 +40,6 @@ import _integer from './integer';
 
 // number <<
 var _number = function (schema, global) {
-  console.log('in _number')
   // just return an integer
   return _integer(schema, global);
 };
@@ -50,7 +47,6 @@ var _number = function (schema, global) {
 
 // null <<
 var _null = function () {
-  console.log('in _null')
   // this one was easy
   return null;
 };
@@ -58,22 +54,17 @@ var _null = function () {
 
 // object <<
 var _object = function (schema, global, options) {
-  console.log('in object: options', options)
   var {
     required,
     properties
   } = schema;
-
 
   let requiredOnly = true
   if (options && options.requiredOnly !== undefined) {
     requiredOnly = options.requiredOnly
   }
 
-  console.log('requiredOnly', requiredOnly)
-
   let array = requiredOnly ? required : Object.keys(properties)
-  console.log('array', array)
 
   if (!array) {
     // no required fields, return empty object
@@ -95,14 +86,12 @@ var _object = function (schema, global, options) {
 var _string = function () {
   // we do not know what we need
   // so return empty string
-  console.log('in string')
   return '';
 };
 // >>
 
 // create empty value based on schema <<
 empty = function (schema, global, options) {
-  console.log('in empty')
   var {
     type
     , 'default': default_  // rename default to default_
@@ -177,7 +166,6 @@ empty = function (schema, global, options) {
 // >>
 
 var make = function (schema, options) {
-  console.log('in make')
   var s = deref(schema);
   return empty(s, s, options);
 };
